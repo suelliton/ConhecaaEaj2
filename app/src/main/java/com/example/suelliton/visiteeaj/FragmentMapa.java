@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orm.SugarContext;
+
 /**
  * Created by suelliton on 14/10/2017.
  */
@@ -17,5 +19,11 @@ public class FragmentMapa extends Fragment {
         View v = inflater.inflate(R.layout.fragmentmapa_inflate,container,false);
 
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
     }
 }

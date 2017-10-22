@@ -25,7 +25,7 @@ public class LocaisAdapter extends RecyclerView.Adapter {
 
 
     static LocalViewHolder ultimoItem ;
-    static int POSITION_CLICADO ;
+
 
 
     private List<Local> listaLocais = new ArrayList<>();
@@ -53,7 +53,7 @@ public class LocaisAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
 
-                    POSITION_CLICADO = localHolder.getAdapterPosition();
+                    //POSITION_CLICADO = localHolder.getAdapterPosition();
                     if(ultimoItem == null) {
 
                         localHolder.row.setBackgroundColor(Color.parseColor("#00FF00"));

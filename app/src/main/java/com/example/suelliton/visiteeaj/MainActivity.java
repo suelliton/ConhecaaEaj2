@@ -1,8 +1,17 @@
 package com.example.suelliton.visiteeaj;
 
+import android.Manifest;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,13 +28,17 @@ import com.orm.SugarRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import static com.example.suelliton.visiteeaj.LocaisAdapter.POSITION_CLICADO;
+import static com.example.suelliton.visiteeaj.FragmentRecycler.POSITION_CLICADO;
 import static com.example.suelliton.visiteeaj.LocaisAdapter.ultimoItem;
 
 public class MainActivity extends AppCompatActivity {
 
     TabLayout tabLayout ;
+    final String[] permissoes = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+    };
+
 
 
     @Override
@@ -33,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SugarContext.init(this);
-        preencheBanco();
+       // preencheBanco();
 
         tabLayout = (TabLayout) findViewById(R.id.tab);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -90,11 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void preencheRecycler(){
-
-    }
     public void preencheInformacoes(){
-
         TextView nome = (TextView) findViewById(R.id.tx_nome);
         TextView descricao = (TextView) findViewById(R.id.tx_descricao);
         TextView responsavel = (TextView) findViewById(R.id.tx_responsavel);
@@ -102,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         TextView email = (TextView) findViewById(R.id.tx_email);
         TextView horario = (TextView) findViewById(R.id.tx_horario);
         ImageView imagem = (ImageView) findViewById(R.id.foto);
-
 
         List<Local> locais = Local.listAll(Local.class);
         Local l = locais.get(POSITION_CLICADO);
@@ -113,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         telefone.setText(l.getTelefone());
         email.setText(l.getEmail());
         horario.setText(l.getHorario_funcionamento());
+        Log.i("position_clicado",POSITION_CLICADO+"");
         switch(POSITION_CLICADO){
             case 0:
                 imagem.setImageResource(R.drawable.informatica);
@@ -121,12 +130,13 @@ public class MainActivity extends AppCompatActivity {
                 imagem.setImageResource(R.drawable.diretoria);
                 break;
             default:
-
         }
+    }
 
-
+    public void preencheRecycler(){
 
     }
+
 
     public void preencheBanco(){
         Local.deleteAll(Local.class);
@@ -144,6 +154,46 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for(int result : grantResults){
+            if(result == PackageManager.PERMISSION_DENIED){
+                alertAndFinish();
+                return;
+            }
+        }
+    }
+    private void alertAndFinish(){
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.app_name).setMessage("Para utilizar este aplicativo, você precisa aceitar as permissões.");
+            // Add the buttons
+            builder.setNegativeButton("Fechar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            builder.setPositiveButton("Permitir", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        PermissionUtils.validate(this, 0, permissoes);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

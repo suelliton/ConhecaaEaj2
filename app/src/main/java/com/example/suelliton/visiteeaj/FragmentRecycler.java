@@ -16,17 +16,19 @@ import com.orm.SugarContext;
 
 import java.util.List;
 
+
 /**
  * Created by suelliton on 14/10/2017.
  */
 
 public class FragmentRecycler extends Fragment {
     View v;
+    static int POSITION_CLICADO ;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragmentrecycler_inflate,container,false);
-        SugarContext.init(v.getContext());
+
 
         RecyclerView recyclerView =  v.findViewById(R.id.recycler);
         List<Local> locais = Local.listAll(Local.class);
@@ -39,7 +41,8 @@ public class FragmentRecycler extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-
+                POSITION_CLICADO = position;
+                Log.i("position_clicado",POSITION_CLICADO+"");
             }
 
             @Override
@@ -62,7 +65,7 @@ public class FragmentRecycler extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        SugarContext.terminate();
+
     }
 
 
