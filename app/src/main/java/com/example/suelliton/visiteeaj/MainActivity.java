@@ -18,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                         tabLayout.getTabAt(1).setIcon(android.R.drawable.star_off);
                         tabLayout.getTabAt(2).setIcon(android.R.drawable.ic_dialog_map);
                         Log.i("TESTE",""+position);
+                        WebView webView =(WebView) findViewById(R.id.webview);
+                        webView.loadUrl("https://maps.google.com/maps?saddr=-5.8841826,-35.365046&daddr=-5.8579104,-35.3558422");
+
                         break;
                     default:
                         return;
