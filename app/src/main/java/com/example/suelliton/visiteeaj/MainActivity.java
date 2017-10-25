@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SugarContext.init(this);
-       // preencheBanco();
+        preencheBanco();
 
         tabLayout = (TabLayout) findViewById(R.id.tab);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -61,26 +62,14 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 switch (position){
                     case 0:
-                        tabLayout.getTabAt(0).setIcon(android.R.drawable.presence_online);
-                        tabLayout.getTabAt(1).setIcon(android.R.drawable.star_off);
-                        tabLayout.getTabAt(2).setIcon(android.R.drawable.ic_dialog_map);
-                        Log.i("TESTE",""+position);
+
                         preencheRecycler();
                         break;
                     case 1:
-                        tabLayout.getTabAt(0).setIcon(android.R.drawable.presence_offline);
-                        tabLayout.getTabAt(1).setIcon(android.R.drawable.star_on);
-                        tabLayout.getTabAt(2).setIcon(android.R.drawable.ic_dialog_map);
-                        Log.i("TESTE",""+position);
+
                         preencheInformacoes();
                         break;
                     case 2:
-                        tabLayout.getTabAt(0).setIcon(android.R.drawable.presence_offline);
-                        tabLayout.getTabAt(1).setIcon(android.R.drawable.star_off);
-                        tabLayout.getTabAt(2).setIcon(android.R.drawable.ic_dialog_map);
-                        Log.i("TESTE",""+position);
-                        WebView webView =(WebView) findViewById(R.id.webview);
-                        webView.loadUrl("https://maps.google.com/maps?saddr=-5.8841826,-35.365046&daddr=-5.8579104,-35.3558422");
 
                         break;
                     default:
@@ -133,6 +122,21 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 imagem.setImageResource(R.drawable.diretoria);
                 break;
+            case 2:
+                imagem.setImageResource(R.drawable.biblioteca);
+                break;
+            case 3:
+                imagem.setImageResource(R.drawable.agroindustria);
+                break;
+            case 4:
+                imagem.setImageResource(R.drawable.cvt);
+                break;
+            case 5:
+                imagem.setImageResource(R.drawable.aquicultura);
+                break;
+            case 6:
+                imagem.setImageResource(R.drawable.ensinomedio);
+                break;
             default:
         }
     }
@@ -144,15 +148,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void preencheBanco(){
         Local.deleteAll(Local.class);
-        new Local("Informática"," Esse é o setor de Informática","Leonardo Rodrigues","SetorInformática@eaj.edu.br","84 99123-5432","7:15 as 17:00").save();
-        new Local("Direçao","Esse é a direção geral da Escola Agrícola de Jundiaí","Julio Cesar","DirecaoGeralEaj@eaj.edu.br","84 99923-5362","7:30 as 17:15").save();
-        new Local("Biblioteca","Essa é a biblioteca setorial Rodolfo Helinski","Rodolfo Helinski","BibliotecaSetorialRH@eaj.edu.br","84 98827-3625","7:00 as 17:30").save();
-        new Local("Agroindústria","Esse é o setor de agroindútria","Eronilson","SetorAgroindústria@eaj.edu.br","84 99123-5432","7:15 as 17:00").save();
-        new Local("CVT"," Esse é o Centro Vocacional Tecnológico","André Stwart","cvteajeaj.edu.br","84 99653-5872","7:15 as 17:00").save();
-        new Local("Informática"," Esse é o setor de Informática","Leonardo Rodrigues","SetorInformática@eaj.edu.br","84 99123-5432","7:15 as 17:00").save();
-        new Local("Informática"," Esse é o setor de Informática","Leonardo Rodrigues","SetorInformática@eaj.edu.br","84 99123-5432","7:15 as 17:00").save();
-        new Local("Informática"," Esse é o setor de Informática","Leonardo Rodrigues","SetorInformática@eaj.edu.br","84 99123-5432","7:15 as 17:00").save();
-        new Local("Informática"," Esse é o setor de Informática","Leonardo Rodrigues","SetorInformática@eaj.edu.br","84 99123-5432","7:15 as 17:00").save();
+        new Local("Informática"," Setor de Informática","Leonardo Rodrigues","SetorInformática@eaj.edu.br","84 99123-5432","7:15 as 17:00",-5.885786,-35.365748).save();
+        new Local("Direçao","Direção geral da Escola Agrícola de Jundiaí","Julio Cesar","DirecaoGeralEaj@eaj.edu.br","84 99923-5362","7:30 as 17:15",-5.88636, -35.362098).save();
+        new Local("Biblioteca","Biblioteca setorial Rodolfo Helinski","Rodolfo Helinski","BibliotecaSetorialRH@eaj.edu.br","84 98827-3625","7:00 as 17:30",-5.885954,-35.366073).save();
+        new Local("Agroindústria","Agroindútria, construção e manipulação de alimentos ","Eronilson","SetorAgroindústria@eaj.edu.br","84 99123-5432","7:15 as 17:00",-5.885074,-35.366160).save();
+        new Local("CVT"," Centro Vocacional Tecnológico","André Stwart","cvteajeaj.edu.br","84 99653-5872","7:15 as 17:00",-5.884567, -35.364924).save();
+        new Local("Aquicultura"," Aquicultura, piscicultura e camarocultura","Paulo Faria","SetorAquicultura@eaj.edu.br","84 99123-2232","7:15 as 17:00", -5.887602,-35.361685).save();
+        new Local("Ensino médio"," Ensino médio integrado aos cursos de informática,aquicultura etc.","Aristotelina","Ensinomedio@eaj.edu.br","84 99423-5432","7:15 as 17:00",-5.885205,-35.364782).save();
+
         List<Local> locais = Local.listAll(Local.class);
         Log.i("susu", String.valueOf(locais.size()));
 

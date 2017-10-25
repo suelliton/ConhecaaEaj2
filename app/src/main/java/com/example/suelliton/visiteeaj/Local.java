@@ -16,23 +16,31 @@ public class Local extends SugarRecord{
     private String email;
     private String telefone;
     private String horario_funcionamento;
+    private double latitude;
+    private double longitude;
 
 
 
     public Local() {
     }
 
-    public Local(String nome, String descricao, String responsavel, String email, String telefone, String horario_funcionamento) {
+    public Local(String nome, String descricao, String responsavel, String email, String telefone, String horario_funcionamento, double latitude, double longitude) {
         this.nome = nome;
         this.descricao = descricao;
         this.responsavel = responsavel;
         this.email = email;
         this.telefone = telefone;
         this.horario_funcionamento = horario_funcionamento;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -75,8 +83,20 @@ public class Local extends SugarRecord{
         this.horario_funcionamento = horario_funcionamento;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
@@ -88,6 +108,8 @@ public class Local extends SugarRecord{
                 ", email='" + email + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", horario_funcionamento='" + horario_funcionamento + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 '}';
     }
 }

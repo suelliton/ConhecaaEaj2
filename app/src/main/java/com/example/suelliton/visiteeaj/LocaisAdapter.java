@@ -47,7 +47,7 @@ public class LocaisAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final LocalViewHolder localHolder = (LocalViewHolder) holder;
         localHolder.textView_nome.setText(listaLocais.get(position).getNome());
-
+        localHolder.textView_descricao_recycler.setText(listaLocais.get(position).getDescricao());
 
             localHolder.row.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,10 +56,10 @@ public class LocaisAdapter extends RecyclerView.Adapter {
                     //POSITION_CLICADO = localHolder.getAdapterPosition();
                     if(ultimoItem == null) {
 
-                        localHolder.row.setBackgroundColor(Color.parseColor("#00FF00"));
+                        localHolder.row.setBackgroundColor(Color.parseColor("#B0C4DE"));
                     }else{
                         ultimoItem.row.setBackgroundColor(Color.parseColor("#ffffff"));
-                        localHolder.row.setBackgroundColor(Color.parseColor("#00FF00"));
+                        localHolder.row.setBackgroundColor(Color.parseColor("#B0C4DE"));
                     }
 
                     ultimoItem = localHolder;
@@ -81,10 +81,12 @@ public class LocaisAdapter extends RecyclerView.Adapter {
 
     public class LocalViewHolder extends RecyclerView.ViewHolder{
         final TextView textView_nome ;
+        final TextView textView_descricao_recycler ;
         final LinearLayout row;
         public LocalViewHolder(View v){
             super(v);
             textView_nome = v.findViewById(R.id.tx_nome);
+            textView_descricao_recycler = v.findViewById(R.id.descricao_recycler);
             row = v.findViewById(R.id.row);
         }
     }
