@@ -37,6 +37,7 @@ public class FragmentRecycler extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
+                MainActivity.tabLayout.getTabAt(1).select();
                 POSITION_CLICADO = position;
                 Log.i("position_clicado",POSITION_CLICADO+"");
             }

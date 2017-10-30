@@ -35,7 +35,7 @@ import static com.example.suelliton.visiteeaj.LocaisAdapter.ultimoItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout ;
+    public static TabLayout tabLayout ;
     final String[] permissoes = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
