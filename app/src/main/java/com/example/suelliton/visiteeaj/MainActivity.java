@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
 
                         preencheRecycler();
+
                         break;
                     case 1:
 
